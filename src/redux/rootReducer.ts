@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { ResultsReducer, SearchReducer } from 'redux/AppReducer';
-import { ResultMap, Search } from 'redux/AppModel';
+import { ResultModel, SearchModel } from 'redux/AppModel';
 
 export type GlobalStateType = {
-  searchReducer: Search;
-  resultsReducer: ResultMap;
+  searchReducer: SearchModel;
+  resultsReducer: ResultModel;
 };
 
 const rootReducer = combineReducers({

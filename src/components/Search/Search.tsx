@@ -4,9 +4,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import { useDispatch, useSelector } from 'react-redux';
 import { GlobalStateType } from 'redux/rootReducer';
 import { searchStyles } from './Search.styles';
-import { updateSearchAction } from 'redux/AppActions';
+import { updateSearchTermAction } from 'redux/AppActions';
 
-const INPUT_INTERVAL = 250; // ms TODO
+const INPUT_INTERVAL = 2500000; // ms TODO timer?
 
 function Search(): JSX.Element {
   const dispatch = useDispatch();
@@ -18,10 +18,10 @@ function Search(): JSX.Element {
   });
 
   const updateSearch = useCallback(() => {
-    const trimmedStr = searchStr.trim();
+    const trimmedStr = searchStr.trim(); // TODO sanitize?
 
     if (trimmedStr.length > 0 && trimmedStr.localeCompare(savedSearchStr) !== 0) {
-      dispatch(updateSearchAction(trimmedStr));
+      dispatch(updateSearchTermAction(trimmedStr));
     }
   }, [dispatch, searchStr, savedSearchStr]);
 
@@ -33,10 +33,6 @@ function Search(): JSX.Element {
     },
     [updateSearch],
   );
-
-  useEffect(() => {
-    console.log('log', savedSearchStr);
-  }, [savedSearchStr]);
 
   useEffect(() => {
     const interval = window.setInterval(() => {

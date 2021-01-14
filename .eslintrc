@@ -10,7 +10,7 @@
   "plugins": ["@typescript-eslint", "prettier", "react", "react-hooks"],
   "rules": {
     "prettier/prettier": "error",
-    "require-jsdoc": "warn",
+    "require-jsdoc": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error"
   }

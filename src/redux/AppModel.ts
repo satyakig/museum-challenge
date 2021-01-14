@@ -1,18 +1,58 @@
-export class Result {
-  search = '';
-  data: Record<string, unknown> | null = null;
-  completed = false;
-  executing = false;
+export class RequestStatus {
+  executing;
+  completed;
+
+  constructor(executing: boolean, completed: boolean) {
+    this.executing = executing;
+    this.completed = completed;
+  }
 }
 
-export class Search {
+export class SearchData {
+  search: string;
+  objectIds: number[];
+  requestStatus: RequestStatus;
+
+  constructor(search: string, objectIds: number[], requestStatus: RequestStatus) {
+    this.search = search;
+    this.objectIds = objectIds;
+    this.requestStatus = requestStatus;
+  }
+}
+
+export class ObjectData {
+  objectId: number;
+  data: Record<string, unknown> | null;
+  requestStatus: RequestStatus;
+
+  constructor(
+    objectId: number,
+    data: Record<string, unknown> | null,
+    requestStatus: RequestStatus,
+  ) {
+    this.objectId = objectId;
+    this.requestStatus = requestStatus;
+    this.data = data;
+  }
+}
+
+export class SearchModel {
   search: string;
 
-  constructor(search: string) {
+  constructor(search = '') {
     this.search = search;
   }
 }
 
-export class ResultMap {
-  results: Map<string, Result> = new Map();
+export class ResultModel {
+  searchMap: Map<string, SearchData>;
+  objectsDataMap: Map<number, ObjectData>;
+
+  constructor(
+    searchMap: Map<string, SearchData> = new Map<string, SearchData>(),
+    objectsDataMap: Map<number, ObjectData> = new Map<number, ObjectData>(),
+  ) {
+    this.searchMap = searchMap;
+    this.objectsDataMap = objectsDataMap;
+  }
 }
