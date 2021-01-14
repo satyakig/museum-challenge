@@ -26,16 +26,19 @@ function ItemModal(): JSX.Element {
     return state.resultsReducer.objectsDataMap;
   });
 
+  // Clear the selected item -> set to null
   function closeModal(): void {
     dispatch(updateSelectedItemAction(null));
   }
 
+  // Only display the modal if the selectedItem is not null
   if (selectedItem === null) {
     return <div />;
   }
 
   const objectData = objectDataMap.get(selectedItem);
 
+  // Only display the modal if there is data for the selected item
   if (!objectData || objectData.data === null) {
     return <div />;
   }

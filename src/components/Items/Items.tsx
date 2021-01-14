@@ -56,6 +56,7 @@ function Items(): JSX.Element {
             : [];
         });
 
+        // ONLY show 20 items
         setResults(tmpResults.slice(0, 20));
       }
     }

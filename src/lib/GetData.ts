@@ -22,6 +22,7 @@ function generateObjectUrl(objectId: number): string {
 }
 
 export function getObjectIds(dispatch: Dispatch, search: string): void {
+  // url encode the search term
   const url = generateSearchUrl(encodeURIComponent(search));
 
   dispatch(updateSearchDataStartAction(search));

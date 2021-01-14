@@ -19,6 +19,9 @@ function DataLoadContainer(): JSX.Element {
     return state.resultsReducer.objectsDataMap;
   });
 
+  // Check whether the search string has already been loaded from the Museum api
+  // This is checked against previously loaded search strings which is saved in `state.resultsReducer.searchMap`
+  // Only try to load this search term, if it has not been requested already
   useEffect(() => {
     if (search.length > 0) {
       const searchData = searchMap.get(search);
@@ -32,6 +35,9 @@ function DataLoadContainer(): JSX.Element {
     }
   }, [dispatch, search, searchMap]);
 
+  // Gets a list of all the objectIds available for ANY search term
+  // Checks each objectId against the `state.resultsReducer.objectDataMap` to verify whether its data exists
+  // Only try to load the object data, if it does not exist
   useEffect(() => {
     const objectIds = Array.from(searchMap.values()).flatMap((entry) => {
       return entry.objectIds;
@@ -43,6 +49,7 @@ function DataLoadContainer(): JSX.Element {
         objectData === undefined ||
         (!objectData.requestStatus.completed && !objectData.requestStatus.executing)
       ) {
+        // TODO: Throttle this?
         getObjectData(dispatch, objectId);
       }
     }
