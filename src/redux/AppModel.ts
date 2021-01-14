@@ -38,9 +38,11 @@ export class ObjectData {
 
 export class SearchModel {
   search: string;
+  selectedItem: number | null;
 
-  constructor(search = '') {
+  constructor(search = '', selectedItem: number | null = null) {
     this.search = search;
+    this.selectedItem = selectedItem;
   }
 }
 

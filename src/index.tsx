@@ -14,9 +14,7 @@ ReactDOM.render(
   <ThemeProvider theme={THEME}>
     <CssBaseline />
     <Provider store={store}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <App />
     </Provider>
   </ThemeProvider>,
 

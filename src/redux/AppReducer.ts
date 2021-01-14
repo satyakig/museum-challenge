@@ -5,15 +5,20 @@ import {
   UpdateSearchDataEndActionType,
   UpdateSearchDataStartActionType,
   UpdateSearchTermActionType,
+  UpdateSelectedItemActionType,
 } from 'redux/AppActionTypes';
 import { ACTION_TYPES } from 'redux/AppActions';
 
 export const SearchReducer = (
   state: SearchModel = new SearchModel(),
-  action: UpdateSearchTermActionType,
+  action: UpdateSearchTermActionType & UpdateSelectedItemActionType,
 ): SearchModel => {
   if (action.type === ACTION_TYPES.UPDATE_SEARCH) {
-    return new SearchModel(action.search);
+    return new SearchModel(action.search, state.selectedItem);
+  } else {
+    if (action.type === ACTION_TYPES.UPDATE_SELECTED_ITEM) {
+      return new SearchModel(state.search, action.selectedItem);
+    }
   }
 
   return state;

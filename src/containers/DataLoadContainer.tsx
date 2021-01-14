@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GlobalStateType } from 'redux/rootReducer';
 import { getObjectData, getObjectIds } from 'lib/GetData';
 
+/**
+ * This is a helper container that makes requests to the Museum API
+ * @constructor
+ */
 function DataLoadContainer(): JSX.Element {
   const dispatch = useDispatch();
   const search = useSelector((state: GlobalStateType) => {

@@ -1,5 +1,9 @@
 import { Action } from 'redux';
 
+export type UpdateSelectedItemActionType = {
+  selectedItem: number | null;
+} & Action<string>;
+
 export type UpdateSearchTermActionType = {
   search: string;
 } & Action<string>;

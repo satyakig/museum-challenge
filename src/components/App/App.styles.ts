@@ -19,16 +19,13 @@ export const appStyles = makeStyles(() => {
       height: `${searchCombinedHeight}px`,
       flexBasis: `${searchCombinedHeight}px`,
       width: '100%',
-
-      border: '1px solid black',
     },
     resultsWrapper: {
       width: '100%',
       flexGrow: 1,
       maxHeight: `calc(100vh - ${searchCombinedHeight}px)`,
       overflowY: 'auto',
-
-      border: '1px solid red',
+      overflowX: 'hidden',
     },
   });
 });

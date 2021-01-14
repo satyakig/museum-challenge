@@ -6,8 +6,23 @@ import { GlobalStateType } from 'redux/rootReducer';
 import { searchStyles } from './Search.styles';
 import { updateSearchTermAction } from 'redux/AppActions';
 
-const INPUT_INTERVAL = 2500000; // ms TODO timer?
+// The user input is checked every 500ms, this value could be increased/decreased based on
+// if we want more or less requests being made ot the Museum api
+const INPUT_INTERVAL = 500; // ms
 
+/**
+ * Sanitizes the user input string
+ * Gets rid of non alphanumeric values
+ * @param input
+ */
+function sanitizeString(input: string): string {
+  return input.replace(/[^\x20-\x7E]/g, '').trim();
+}
+
+/**
+ * Displays a text input where you can type
+ * @constructor
+ */
 function Search(): JSX.Element {
   const dispatch = useDispatch();
   const styles = searchStyles();
@@ -17,11 +32,12 @@ function Search(): JSX.Element {
     return state.searchReducer.search;
   });
 
+  // If the current user input is different from what is saved in redux, update redux
   const updateSearch = useCallback(() => {
-    const trimmedStr = searchStr.trim(); // TODO sanitize?
+    const cleanStr = sanitizeString(searchStr);
 
-    if (trimmedStr.length > 0 && trimmedStr.localeCompare(savedSearchStr) !== 0) {
-      dispatch(updateSearchTermAction(trimmedStr));
+    if (cleanStr.length > 0 && cleanStr.localeCompare(savedSearchStr) !== 0) {
+      dispatch(updateSearchTermAction(cleanStr));
     }
   }, [dispatch, searchStr, savedSearchStr]);
 
@@ -35,10 +51,14 @@ function Search(): JSX.Element {
   );
 
   useEffect(() => {
+    // Check for whether the user input has changed every INPUT_INTERVAL
+    // This is so that we don't send too many requests as the user is typing
     const interval = window.setInterval(() => {
       updateSearch();
     }, INPUT_INTERVAL);
 
+    // Adding a listener for the enter button press
+    // Works the same way as the search icon button
     window.addEventListener('keyup', onKeyUp);
 
     return () => {

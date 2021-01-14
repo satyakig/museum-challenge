@@ -4,9 +4,11 @@ import {
   UpdateSearchDataEndActionType,
   UpdateSearchDataStartActionType,
   UpdateSearchTermActionType,
+  UpdateSelectedItemActionType,
 } from 'redux/AppActionTypes';
 
 export enum ACTION_TYPES {
+  UPDATE_SELECTED_ITEM = 'UPDATE_SELECTED_ITEM',
   UPDATE_SEARCH = 'UPDATE_SEARCH',
 
   UPDATE_SEARCH_DATA_START = 'UPDATE_SEARCH_DATA_START',
@@ -14,6 +16,15 @@ export enum ACTION_TYPES {
 
   UPDATE_OBJECT_DATA_START = 'UPDATE_OBJECT_DATA_START',
   UPDATE_OBJECT_DATA_END = 'UPDATE_OBJECT_DATA_END',
+}
+
+export function updateSelectedItemAction(
+  selectedItem: number | null,
+): UpdateSelectedItemActionType {
+  return {
+    type: ACTION_TYPES.UPDATE_SELECTED_ITEM,
+    selectedItem,
+  };
 }
 
 export function updateSearchTermAction(search: string): UpdateSearchTermActionType {
